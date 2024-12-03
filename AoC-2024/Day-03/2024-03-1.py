@@ -14,8 +14,3 @@ for thing in mul_regex.finditer(txt):
     ans += a*b
 
 print(ans)
-
-# def mul(s:str) -> int:
-#     '''0 if invalid, mul(a,b) if mul(a,b) is a prefix'''
-#     if s[:3] != 'mul':
-#         return 0
