@@ -2,11 +2,18 @@ with open('Input.txt', 'r') as f:
     txt = f.read()
 
 '''IDEA
-130x130 grid
-Just brute force
-Try all possible spots
-Works iff you reach a spot a spot 5 times
-Estimate = 2x10^7 ops
+A loop happens iff you have the same position and direction twice.
+There are 4RC possible (row,col,dir) triples, so 4RC+1 moves would 
+imply that you have an infinite loop.
+
+Brute force all 130^2 possible positions
+Each check will run for at most 4*130^2 moves
+    4 * 130^4 ~ 10^9
+The runtime is good enough to brute force.
+
+Possible optimization:
+    Store the (row,col,dir) triples themselves, then detect once you 
+    repeat a triple
 '''
 
 M = [row for row in txt.split('\n')]
@@ -24,13 +31,7 @@ def works(r0:int,c0:int) -> bool:
     _M = [[M[r][c] for c in range(C)] for r in range(R)]
     _M[r0][c0] = '#'
 
-    
-
-    # for row in _M:
-    #     print(row)
-    # print('\n\n')
-
-    #If loop 4RC+1 times, must be in a loop
+    #If move 4RC+1 times, must be in a loop
     r,c = sta_r,sta_c
     moves = 0
     dir = 0
@@ -80,14 +81,8 @@ def works(r0:int,c0:int) -> bool:
             #Move
             c -= 1
             moves += 1
-
-        # print(r,c)
     
     return moves >= 4*R*C
-
-
-# works(6,3)
-# exit(0)
 
 
 
@@ -97,56 +92,3 @@ for r in range(R):
         if works(r,c):
             ans += 1
 print(ans)
-exit(0)
-
-dir = 0   #N=0, E=1, S=2, W=3
-while True:
-    #Mark current cell as visited
-    seen[r][c] = 1
-
-    #Guard exits
-    if dir == 0 and r == 0:
-        break
-    if dir == 1 and c == C-1:
-        break
-    if dir == 2 and r == R-1:
-        break
-    if dir == 3 and c == 0:
-        break
-
-    #N
-    if dir == 0:
-        #Turn OR
-        if M[r-1][c] == '#':
-            dir = 1
-            continue
-        #Move
-        r -= 1
-    #E
-    if dir == 1:
-        #Turn OR
-        if M[r][c+1] == '#':
-            dir = 2
-            continue
-        #Move
-        c += 1
-    #S
-    if dir == 2:
-        #Turn OR
-        if M[r+1][c] == '#':
-            dir = 3
-            continue
-        #Move
-        r += 1
-    #W
-    if dir == 3:
-        #Turn OR
-        if M[r][c-1] == '#':
-            dir = 0
-            continue
-        #Move
-        c -= 1
-
-ans = sum([sum(row) for row in seen])
-print(ans)
-
