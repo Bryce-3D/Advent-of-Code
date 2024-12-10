@@ -3,7 +3,7 @@
 // https://stackoverflow.com/questions/29656267/remove-elements-from-javascript-array-by-position
 
 const fs = require('fs')
-txt = fs.readFileSync('Input.txt', 'utf8')
+txt = fs.readFileSync('Sample.txt', 'utf8')
 lines = txt.split('\n')
 
 function works_1(line) {
@@ -29,13 +29,12 @@ function works_2(line) {
     for (let i = 0; i < line.length; i++) {
         //Copy the line except for the ith number
 
-        // NOTE: The below part gives the wrong answer and I hae no idea why
         // let _line = []
         // for (let j = 0; j < line.length-1; j++) {
         //     if (j < i) {
-        //         _line[j] = line[i]
+        //         _line[j] = line[j]
         //     } else if (j >= i) {
-        //         _line[j] = line[i+1]
+        //         _line[j] = line[j+1]
         //     }
         // }
 
