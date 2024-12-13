@@ -1,23 +1,15 @@
+import re
+
 with open('Input.txt', 'r') as f:
     txt = f.read()
 tc_txts = txt.split('\n\n')
 
-def parse_tc(tc_txt:str) -> list[int]:
+def parse_tc_re(tc_txt:str) -> list[int]:
     '''
     Output is
         [A_x, A_y, B_x, B_y, p_x, p_y]
     '''
-    but_A,but_B,prize = tc_txt.split('\n')
-    but_A = but_A.split(':')[1]
-    but_B = but_B.split(':')[1]
-    prize = prize.split(':')[1]
-    A_x = int(but_A.split(',')[0][3:])
-    A_y = int(but_A.split(',')[1][3:])
-    B_x = int(but_B.split(',')[0][3:])
-    B_y = int(but_B.split(',')[1][3:])
-    p_x = int(prize.split(',')[0][3:])
-    p_y = int(prize.split(',')[1][3:])
-    return [A_x,A_y,B_x,B_y,p_x,p_y]
+    return [int(i) for i in re.findall(r'\d+', tc_txt)]
 
 def solve(x_0,x_1,y_0,y_1,c_0,c_1) -> list[int]|None:
     '''
@@ -52,12 +44,34 @@ def cost(A_x,A_y,B_x,B_y,p_x,p_y,C) -> int:
 #Part 1
 ans = 0
 for tc_txt in tc_txts:
-    ans += cost(*parse_tc(tc_txt), 0)
+    ans += cost(*parse_tc_re(tc_txt), 0)
 print(ans)
 
 #Part 2
 C = 10000000000000   #10^13
 ans = 0
 for tc_txt in tc_txts:
-    ans += cost(*parse_tc(tc_txt), C)
+    ans += cost(*parse_tc_re(tc_txt), C)
 print(ans)
+
+
+
+
+
+#Recycling Bin ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def parse_tc(tc_txt:str) -> list[int]:
+    '''
+    Output is
+        [A_x, A_y, B_x, B_y, p_x, p_y]
+    '''
+    but_A,but_B,prize = tc_txt.split('\n')
+    but_A = but_A.split(':')[1]
+    but_B = but_B.split(':')[1]
+    prize = prize.split(':')[1]
+    A_x = int(but_A.split(',')[0][3:])
+    A_y = int(but_A.split(',')[1][3:])
+    B_x = int(but_B.split(',')[0][3:])
+    B_y = int(but_B.split(',')[1][3:])
+    p_x = int(prize.split(',')[0][3:])
+    p_y = int(prize.split(',')[1][3:])
+    return [A_x,A_y,B_x,B_y,p_x,p_y]
