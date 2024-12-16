@@ -1,6 +1,3 @@
-with open('Input.txt', 'r') as f:
-    txt = f.read()
-
 def parse_txt(txt:str) -> tuple[list[list[str]], str]:
     '''Return [grid, moves]'''
     grid,moves = txt.split('\n\n')
@@ -64,4 +61,6 @@ def part_1(txt:str) -> int:
         robot_pos = move(grid,robot_pos,drt)
     return score(grid)
 
+with open('Input.txt', 'r') as f:
+    txt = f.read()
 print(part_1(txt))
