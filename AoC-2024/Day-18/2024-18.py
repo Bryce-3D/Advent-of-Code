@@ -113,13 +113,13 @@ for i in range(3046):
 print(reachable(passable))
 print(blocked[3045])
 
-for i in range(3045,3070):
+for i in range(3045,3060):
     passable = [
         [True for x in range(X)]
         for y in range(Y)
     ]
     for j in range(i):
-        x,y = blocked[i]
+        x,y = blocked[j]
         passable[x][y] = False
     
     if not reachable(passable):
