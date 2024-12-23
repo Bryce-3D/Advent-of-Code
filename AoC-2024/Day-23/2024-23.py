@@ -1,3 +1,5 @@
+import time
+
 from collections import defaultdict
 
 def parse_input(fn:str) -> dict[str,set[str]]:
@@ -111,6 +113,8 @@ def part_2_parsed(adj_list:dict[str,set[str]]) -> list[str]:
     return ans
 
 adj_list = parse_input('Input.txt')
-
+t0 = time.time()
 print(part_1(adj_list))
 print(part_2_parsed(adj_list))
+t1 = time.time()
+print(f'{t1-t0} seconds taken')   #6.934496164321899 seconds taken
