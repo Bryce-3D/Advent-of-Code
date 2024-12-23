@@ -1,5 +1,4 @@
 import time
-
 from collections import defaultdict
 
 def parse_input(fn:str) -> dict[str,set[str]]:
